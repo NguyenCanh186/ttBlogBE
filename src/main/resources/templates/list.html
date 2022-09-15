@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="create">Create new blog</a>
+
+<a href="/blogs/cate">List category</a>
+
+
+
+<br>
+<br>
+<br>
+
+<form >
+    <label>Choose a category:</label>
+    <select name="id" onchange="this.form.submit()">
+        <th:block th:each="x : ${categories}">
+            <option th:value="${x.id}" th:text="${x.name}"></option>
+        </th:block>
+    </select>
+<!--    <input type="submit" value="find">-->
+</form>
+<h1>Blogs</h1>
+<table border="1">
+    <tr>
+        <th> title</th>
+        <th>cover</th>
+        <th>content</th>
+        <th>category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="p : ${blogs}">
+        <tr>
+            <td th:text="${p.title}"></td>
+            <td >
+                <img th:each="q : ${p.covers}" th:src="'/image/'+${q.name}" width="100px">
+            </td>
+            <td th:text="${p.content}"></td>
+            <td th:text="${p.category.name}"></td>
+            <td><a th:href="@{/blogs/edit/__${p.id}__ }">Edit</a></td>
+            <td><a th:href="@{/blogs/delete/__${p.id}__ }">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
